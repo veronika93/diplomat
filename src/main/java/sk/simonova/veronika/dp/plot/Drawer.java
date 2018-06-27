@@ -1,7 +1,5 @@
 package sk.simonova.veronika.dp.plot;
 
-import com.sun.javafx.fxml.builder.JavaFXImageBuilder;
-import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -15,8 +13,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.apache.commons.math3.analysis.UnivariateFunction;
-import org.apache.commons.math3.analysis.solvers.BracketingNthOrderBrentSolver;
-import org.apache.commons.math3.analysis.solvers.UnivariateSolver;
+import org.apache.commons.math3.analysis.solvers.*;
 
 
 import java.io.IOException;
@@ -50,24 +47,24 @@ public class Drawer {
         Function<Double, Double> izoklinaC = x -> Math.pow((r + delta) / alfa, 1 / (alfa - 1));
         Function<Double, Double> izoklikaK = x -> produkcna.apply(x) - (delta * x);
 
-        UnivariateFunction function = x -> r + delta - (alfa * Math.pow(x, alfa - 1)) - (znamienko * (((pk.getNasobok() * (Math.pow(x, pk.getMocnina()))) / (pa.getNasobok() * (Math.pow(x, pa.getMocnina()))))));
+        UnivariateFunction function = x -> r + delta - (alfa * Math.pow(x, (alfa - 1))) - (znamienko * ((pk.getNasobok() * (Math.pow(x, pk.getMocnina()))) / (pa.getNasobok() * (Math.pow(x, pa.getMocnina())))));
 
-        UnivariateSolver solver = new BracketingNthOrderBrentSolver(1.0e-12, 1.0e-8, 5);
-        double c = solver.solve(100, function, -10.0, 10.0, 0);
+        UnivariateSolver solver = new BisectionSolver();
+//                new BracketingNthOrderBrentSolver(1.0e-12, 1.0e-8, 5);
+        double c = solver.solve(100, function, 0.00001, 10.0, 0);
         Function<Double, Double> rozsirIzoklikaC = x -> c;
-        Function<Double, Double> rozsirIzoklikaK =
-                x -> produkcna.apply(x) - (delta * x) - (vztah.getNasobok() * Math.pow(x, vztah.getMocnina()));
+        Function<Double, Double> rozsirIzoklikaK = x -> produkcna.apply(x) - (delta * x) - (vztah.getNasobok() * Math.pow(x, vztah.getMocnina()));
         BorderPane bp = new BorderPane();
 
         Plot plot;
 
-        double startX = 80f;
-        double startY = 520;
+        double startX = 120f;
+        double startY = 580;
 
-        Axes axes = new Axes(
-                800, 540, startX, startY,
+        PositiveAxes axes = new PositiveAxes(
+                1000, 600, startX, startY,
                 0, 5, 0.1,
-                0, 1, 0.1
+                0, 1, 0.01
         );
 
         List<ColorfulFunction> functions = new ArrayList<>();

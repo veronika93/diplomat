@@ -10,11 +10,11 @@ import javafx.scene.layout.Pane;
  *
  * @author jewelsea
  */
-public class Axes extends Pane {
+public class PositiveAxes extends Pane {
         private NumberAxis xAxis;
         private NumberAxis yAxis;
 
-        public Axes(
+        public PositiveAxes(
                 int width, int height, double startX, double startY,
                 double xLow, double xHi, double xTickUnit,
                 double yLow, double yHi, double yTickUnit
@@ -29,6 +29,7 @@ public class Axes extends Pane {
             xAxis.setSide(Side.BOTTOM);
             xAxis.setMinorTickVisible(false);
             xAxis.setPrefWidth(width);
+            xAxis.setPrefHeight(20f);
             xAxis.setLayoutY(startY);
             xAxis.setLayoutX(startX);
 
@@ -38,9 +39,10 @@ public class Axes extends Pane {
             yAxis.setSide(Side.LEFT);
             yAxis.setMinorTickVisible(false);
             yAxis.setPrefHeight(height);
+            yAxis.setPrefWidth(20f);
 //            yAxis.layoutXProperty().bind(Bindings.subtract((width / 2) + 1, yAxis.widthProperty()));
-            yAxis.setLayoutY(yAxis.getHeight() - startY);
-            yAxis.setLayoutX(startX - yAxis.getWidth());
+            yAxis.setLayoutY(-20f);
+            yAxis.setLayoutX(99f);
             getChildren().setAll(xAxis, yAxis);
         }
 

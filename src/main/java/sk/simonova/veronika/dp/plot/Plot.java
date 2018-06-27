@@ -10,14 +10,13 @@ import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
 
 /**
  * @author jewelsea
  */
 public class Plot extends Pane {
 
-    public Plot(double xMin, double xMax, double xInc, double startX, double startY, Axes axes, List<ColorfulFunction> functions) {
+    public Plot(double xMin, double xMax, double xInc, double startX, double startY, PositiveAxes axes, List<ColorfulFunction> functions) {
 
         List<Node> nodes = new ArrayList<>();
         nodes.add(axes);
@@ -82,7 +81,7 @@ public class Plot extends Pane {
         getChildren().setAll(nodes);
     }
 
-    private double mapX(double x, Axes axes, double startX) {
+    private double mapX(double x, PositiveAxes axes, double startX) {
         double sx = axes.getPrefWidth()
                 / (axes.getXAxis().getUpperBound()
                 - axes.getXAxis().getLowerBound());
@@ -90,7 +89,7 @@ public class Plot extends Pane {
         return x * sx + startX;
     }
 
-    private double mapY(double y, Axes axes, double startY) {
+    private double mapY(double y, PositiveAxes axes, double startY) {
         double sy = axes.getPrefHeight()
                 / (axes.getYAxis().getUpperBound()
                 - axes.getYAxis().getLowerBound());
