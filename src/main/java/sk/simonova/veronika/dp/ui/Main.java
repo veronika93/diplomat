@@ -1,15 +1,10 @@
 package sk.simonova.veronika.dp.ui;
 
-import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import sk.simonova.veronika.dp.plot.Drawer;
-import sk.simonova.veronika.dp.plot.FunctionDerivater;
-import sk.simonova.veronika.dp.plot.FunctionParser;
 
 public class Main extends Application {
 
@@ -23,7 +18,7 @@ public class Main extends Application {
 //        FunctionParser.Result pk = new FunctionParser.Result(12, 3);
 //        FunctionParser.Result pa = new FunctionParser.Result(50, -2);
 //        FunctionParser.Result vz = new FunctionParser.Result(5, 2);
-//        FunctionParser.Result pad = new FunctionParser.Result(pa.getNasobok()*Math.pow(vz.getNasobok(),pa.getMocnina()),pa.getMocnina()*vz.getMocnina());
+//        FunctionParser.Result pad = new FunctionParser.Result(pa.getNasobok() * Math.pow(vz.getNasobok(), pa.getMocnina()), pa.getMocnina() * vz.getMocnina());
 //
 //        Scene scene = Drawer.draw(0.5, 0.1, 0.5, vz, FunctionDerivater.derivate(pk), FunctionDerivater.derivate(pad), 1);
         Scene scene = new Scene(root, root.getPrefWidth(), root.getPrefHeight());

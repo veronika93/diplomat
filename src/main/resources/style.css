@@ -2,3 +2,27 @@
     -fx-focus-color: #d35244;
     -fx-faint-focus-color: #d3524422;
 }
+
+.check-box:selected .mark {
+  -fx-background-color: white;
+}
+
+.check-box.produkcna:selected .box {
+  -fx-background-color: green;
+}
+
+.check-box.izoklinaC:selected .box  {
+  -fx-background-color: red;
+}
+
+.check-box.izoklinaK:selected .box  {
+  -fx-background-color: blue;
+}
+
+.check-box.rozsirIzoklinaK:selected .box  {
+  -fx-background-color: #800080;
+}
+
+.check-box.rozsirIzoklinaC:selected .box  {
+  -fx-background-color: #FFA500;
+}

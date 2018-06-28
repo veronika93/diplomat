@@ -8,18 +8,16 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-/**
- * @author jewelsea
- */
 public class Plot extends Pane {
+    private Map<String, Node> nodes = new HashMap<>();
 
     public Plot(double xMin, double xMax, double xInc, double startX, double startY, PositiveAxes axes, List<ColorfulFunction> functions) {
 
-        List<Node> nodes = new ArrayList<>();
-        nodes.add(axes);
+        getChildren().add(axes);
 
 
         for (ColorfulFunction function : functions) {
@@ -71,14 +69,40 @@ public class Plot extends Pane {
                 }
             }
 
-            nodes.add(path);
+            this.nodes.put(function.getName(), path);
         }
 
         setMinSize(Pane.USE_PREF_SIZE, Pane.USE_PREF_SIZE);
         setPrefSize(axes.getPrefWidth(), axes.getPrefHeight());
         setMaxSize(Pane.USE_PREF_SIZE, Pane.USE_PREF_SIZE);
 
-        getChildren().setAll(nodes);
+        getChildren().addAll(this.nodes.values());
+    }
+
+    public void toggleNode(String functionName) {
+        Node node = nodes.get(functionName);
+        if (getChildren().contains(node)) {
+            hide(functionName);
+        } else {
+            show(functionName);
+        }
+    }
+
+    public boolean show(String functionName) {
+        Node node = nodes.get(functionName);
+        if (node != null) {
+            getChildren().add(node);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean hide(String functionName) {
+        Node node = nodes.get(functionName);
+        if (node != null) {
+            return getChildren().remove(node);
+        }
+        return false;
     }
 
     private double mapX(double x, PositiveAxes axes, double startX) {
